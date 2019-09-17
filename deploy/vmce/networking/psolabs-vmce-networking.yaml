@@ -1,0 +1,16 @@
+##################################################################################################
+# Neworking
+##################################################################################################
+apiVersion: contour.heptio.com/v1beta1
+kind: IngressRoute
+metadata:
+  name: psolabs-vmce-webapp
+spec:
+  virtualhost:
+    fqdn: app.mytiles.me
+  routes:
+    - match: /psolabs/vmce
+      services:
+        - name: psolabs-vmce-webapp
+          port: 8080
+---

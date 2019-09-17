@@ -1,0 +1,34 @@
+##################################################################################################
+# PSOLABS VMCE Webapp
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: psolabs-vmce-webapp
+spec:
+  selector:
+    app: psolabs-vmce-webapp
+  ports:
+  - name: "8080"
+    port: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: psolabs-vmce-webapp
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: psolabs-vmce-webapp
+        version: v1
+    spec:
+      containers:
+      - name: psolabs-vmce-webapp
+        image: fcarta29/psolabs-vmce-webapp
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always
+---
