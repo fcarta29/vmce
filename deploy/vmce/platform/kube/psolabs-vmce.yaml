@@ -5,17 +5,23 @@ apiVersion: v1
 kind: Service
 metadata:
   name: psolabs-vmce-webapp
+  labels:
+    app: psolabs-vmce-webapp
+    service: psolabs-vmce-webapp
 spec:
   selector:
     app: psolabs-vmce-webapp
   ports:
-  - name: "8080"
+  - name: http
     port: 8080
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: psolabs-vmce-webapp
+  name: psolabs-vmce-webapp-v1
+  labels:
+    app: psolabs-vmce-webapp
+    version: v1
 spec:
   replicas: 1
   template:

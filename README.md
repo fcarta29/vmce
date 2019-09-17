@@ -7,18 +7,26 @@ mvn clean install
 mvn spring-boot:run
 
 ## Deploy PSOLABS Projects
-### Build Deploy Container (from /deploy dir)
+### Build & Tag Deploy Container (from /deploy dir)
 ```
-$ docker build -t psolabs-deploy --rm -f deploy.dockerfile .
+$ make build
 ```
-### Run and Connect to Deploy Container
+### Run and Connect to Deploy Container (from /deploy dir)
 ```
-$ docker run --name psolabs-deploy -td fcarta29/psolabs-deploy:latest
-$ docker exec -it psolabs-deploy bash
+$ make run
 ```
-### Push Deploy Container
+### Push Deploy Container (from /deploy dir)
 ```
-docker login
-docker tag psolabs-deploy:latest fcarta29/psolabs-deploy:latest
-docker push fcarta29/psolabs-deploy:latest
+$ docker login (optional if not logged in)
+$ make push
+```
+
+
+### Build VMCE Webapp Docker Image
+```
+$ docker build -f web.dockerfile -t fcarta29/psolabs-vmce-webapp:latest .
+```
+### Push VMCE Webapp Docker Image 
+```
+$ docker push fcarta29/psolabs-vmce-webapp:latest
 ```
