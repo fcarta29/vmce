@@ -1,4 +1,4 @@
-package com.vmware.psolabs;
+package com.vmware.psolabs.vmce.web;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
