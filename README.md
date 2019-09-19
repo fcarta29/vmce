@@ -21,12 +21,19 @@ $ docker login (optional if not logged in)
 $ make push
 ```
 
-
-### Build VMCE Webapp Docker Image
+### Build VMCE Webapp (from /vmce)
+```
+$ mvn clean install
+```
+### Run VMCE Webapp locally (from /vmce/vmce-webapp)
+```
+$ mvn spring-boot:run
+```
+### Build VMCE Webapp Docker Image (from /vmce/vmce-webapp dir)
 ```
 $ docker build -f web.dockerfile -t fcarta29/psolabs-vmce-webapp:latest .
 ```
-### Push VMCE Webapp Docker Image 
+### Push VMCE Webapp Docker Image
 ```
 $ docker push fcarta29/psolabs-vmce-webapp:latest
 ```

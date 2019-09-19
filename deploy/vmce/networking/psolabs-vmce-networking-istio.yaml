@@ -25,9 +25,7 @@ spec:
   http:
   - match:
     - uri:
-        exact: /vmce
-    - uri:
-        exact: /hello
+        prefix: /vmce
     route:
     - destination:
         host: psolabs-vmce-webapp.psolabs-vmce.svc.cluster.local
