@@ -2,6 +2,8 @@ package com.vmware.psolabs.vmce.web.dto;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public class AuthDto implements Serializable {
 
     /**
@@ -46,7 +48,7 @@ public class AuthDto implements Serializable {
 
     @Override
     public String toString() {
-        return "AuthDto [key=" + key + "]";
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

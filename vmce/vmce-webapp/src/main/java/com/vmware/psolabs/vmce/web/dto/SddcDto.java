@@ -8,17 +8,18 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-public class OrgDto implements Serializable {
+public class SddcDto implements Serializable {
 
     /**
      * 
      */
-    private static final long serialVersionUID = 3899361213360668694L;
+    private static final long serialVersionUID = -404211213801220010L;
 
     private UUID id;
     private String name;
+    @JsonAlias("org_id")
+    private UUID orgId;
     @JsonAlias("user_id")
     private UUID userId;
     @JsonAlias("user_name")
@@ -32,31 +33,50 @@ public class OrgDto implements Serializable {
     private String updatedByUserName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
     private Date updated;
-    @JsonAlias("display_name")
-    private String displayName;
-    @JsonAlias("project_state")
-    private String projectState;
-    @JsonAlias("properties")
-    @JsonSerialize(as = OrgPropertyDto.class)
-    private OrgPropertyDto properties;
-    @JsonAlias("org_type")
-    private String orgType;
-
+    private String provider;
+    // TODO[fcarta] finish implementing the resource config
+    // @JsonAlias("resource_config")
+    // private SddcResourceConfigDto resourceConfig;
+    @JsonAlias("sddc_state")
+    private String sddcState;
+    @JsonAlias("sddc_access_state")
+    private String sddcAccessState;
+    @JsonAlias("account_link_state")
+    private String accountLinkState;
+    @JsonAlias("sddc_type")
+    private String sddcType;
+    @JsonAlias("one_node_reduced_capacity")
+    private Boolean oneNodeReducedCapacity;
+    @JsonAlias("expiration_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
+    private Date expirationDate;
+    @JsonAlias("sddc_template_id")
+    private UUID sddcTemplateId;
+    @JsonAlias("nsxt_csp_mode")
+    private Boolean nsxtCspMode;
 
     public UUID getId() {
         return id;
     }
-    
+
     public void setId(UUID id) {
         this.id = id;
     }
-    
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UUID getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(UUID orgId) {
+        this.orgId = orgId;
     }
 
     public UUID getUserId() {
@@ -115,38 +135,78 @@ public class OrgDto implements Serializable {
         this.updated = updated;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getProvider() {
+        return provider;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 
-    public String getProjectState() {
-        return projectState;
+    public String getSddcState() {
+        return sddcState;
     }
 
-    public void setProjectState(String projectState) {
-        this.projectState = projectState;
+    public void setSddcState(String sddcState) {
+        this.sddcState = sddcState;
     }
 
-    @JsonSerialize(as = OrgPropertyDto.class)
-    public OrgPropertyDto getProperties() {
-        return properties;
-    }
-    
-    public void setProperties(OrgPropertyDto properties) {
-        this.properties = properties;
+    public String getSddcAccessState() {
+        return sddcAccessState;
     }
 
-    public String getOrgType() {
-        return orgType;
+    public void setSddcAccessState(String sddcAccessState) {
+        this.sddcAccessState = sddcAccessState;
     }
 
-    public void setOrgType(String orgType) {
-        this.orgType = orgType;
+    public String getAccountLinkState() {
+        return accountLinkState;
     }
+
+    public void setAccountLinkState(String accountLinkState) {
+        this.accountLinkState = accountLinkState;
+    }
+
+    public String getSddcType() {
+        return sddcType;
+    }
+
+    public void setSddcType(String sddcType) {
+        this.sddcType = sddcType;
+    }
+
+    public Boolean getOneNodeReducedCapacity() {
+        return oneNodeReducedCapacity;
+    }
+
+    public void setOneNodeReducedCapacity(Boolean oneNodeReducedCapacity) {
+        this.oneNodeReducedCapacity = oneNodeReducedCapacity;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public UUID getSddcTemplateId() {
+        return sddcTemplateId;
+    }
+
+    public void setSddcTemplateId(UUID sddcTemplateId) {
+        this.sddcTemplateId = sddcTemplateId;
+    }
+
+    public Boolean getNsxtCspMode() {
+        return nsxtCspMode;
+    }
+
+    public void setNsxtCspMode(Boolean nsxtCspMode) {
+        this.nsxtCspMode = nsxtCspMode;
+    }
+
 
     @Override
     public int hashCode() {
@@ -164,7 +224,7 @@ public class OrgDto implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        OrgDto other = (OrgDto) obj;
+        SddcDto other = (SddcDto) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

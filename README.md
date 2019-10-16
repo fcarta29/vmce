@@ -29,6 +29,7 @@ $ mvn clean install
 ```
 $ mvn spring-boot:run
 ```
+In a browser navigate to http://localhost:8080/vmce
 ### Build VMCE Webapp Docker Image (from /vmce/vmce-webapp dir)
 ```
 $ docker build -f web.dockerfile -t fcarta29/psolabs-vmce-webapp:latest .

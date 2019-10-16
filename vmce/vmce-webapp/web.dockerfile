@@ -1,5 +1,4 @@
-FROM frolvlad/alpine-oraclejdk8:slim
-VOLUME /tmp
-ADD target/psolabs-vmce-webapp.war psolabs-vmce-webapp.war
-RUN sh -c 'touch /psolabs-vmce-webapp.war'
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/psolabs-vmce-webapp.war"]
+FROM adoptopenjdk/openjdk11:latest
+RUN mkdir /opt/app
+COPY target/psolabs-vmce-webapp.war /opt/app
+CMD ["java", "-jar", "/opt/app/psolabs-vmce-webapp.war"]
