@@ -1,4 +1,4 @@
-package com.vmware.psolabs.vmce.web.controllers;
+package com.vmware.psolabs.vmce.web.controllers.api;
 
 import java.text.MessageFormat;
 

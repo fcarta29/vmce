@@ -33,6 +33,8 @@ classes/
 Servers/
 bin/
 gen/
+**/javac.*.args
+
 
 fcarta.conf
 .o11n

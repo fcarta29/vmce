@@ -1,4 +1,4 @@
-package com.vmware.psolabs.vmce.web.controllers;
+package com.vmware.psolabs.vmce.web.controllers.api;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -21,18 +21,18 @@ import com.vmware.psolabs.vmce.web.dto.RequestDto;
 import com.vmware.psolabs.vmce.web.dto.SddcDto;
 
 @RestController
-@RequestMapping("sddcs")
+@RequestMapping("/api/orgs/{orgId}/sddcs")
 public class SddcController extends AbstractVmcApiController {
     private static final Logger LOG = Logger.getLogger(SddcController.class);
 
     private static final String SDDC_LIST_URL_TEMPLATE = "https://vmc.vmware.com/vmc/api/orgs/{0}/sddcs";
     private static final String SDDC_GET_URL_TEMPLATE = "https://vmc.vmware.com/vmc/api/orgs/{0}/sddcs/{1}";
 
-    @PostMapping(path = "/", consumes = "application/json", produces = "application/json")
-    public Collection<SddcDto> list(@RequestBody final RequestDto requestDto) {
+    @PostMapping(path = "", consumes = "application/json", produces = "application/json")
+    public Collection<SddcDto> list(@RequestBody final RequestDto requestDto, @PathVariable(value = "orgId") String orgId) {
         Collection<SddcDto> sddcDtos = new ArrayList<SddcDto>();
         try {
-            final String sddcListUri = MessageFormat.format(SDDC_LIST_URL_TEMPLATE, requestDto.getOrgId());
+            final String sddcListUri = MessageFormat.format(SDDC_LIST_URL_TEMPLATE, orgId);
 
             final RestTemplate restTemplate = new RestTemplate();
             final HttpEntity<String> requestEntity = new HttpEntity<String>(getAuthorizedHeaders(requestDto));
@@ -48,16 +48,15 @@ public class SddcController extends AbstractVmcApiController {
     }
     
     @PostMapping(path = "/{sddcId}", consumes = "application/json", produces = "application/json")
-    public SddcDto get(@RequestBody final RequestDto requestDto, @PathVariable(value="sddcId") String sddcId) {
+    public SddcDto get(@RequestBody final RequestDto requestDto, @PathVariable(value="orgId") String orgId, @PathVariable(value="sddcId") String sddcId) {
         SddcDto sddcDto = new SddcDto();
         try {
-            final String sddcGetUri = MessageFormat.format(SDDC_GET_URL_TEMPLATE, requestDto.getOrgId(), sddcId);
+            final String sddcGetUri = MessageFormat.format(SDDC_GET_URL_TEMPLATE, orgId, sddcId);
 
             final RestTemplate restTemplate = new RestTemplate();
             final HttpEntity<String> requestEntity = new HttpEntity<String>(getAuthorizedHeaders(requestDto));
             final ResponseEntity<SddcDto> responseEntity = restTemplate.exchange(sddcGetUri, HttpMethod.GET,
-                    requestEntity, new ParameterizedTypeReference<SddcDto>() {
-                    });
+                    requestEntity, new ParameterizedTypeReference<SddcDto>() {});
             sddcDto = responseEntity.getBody();
             LOG.info("SDDC: "+ sddcDto);
         } catch (Exception ex) {

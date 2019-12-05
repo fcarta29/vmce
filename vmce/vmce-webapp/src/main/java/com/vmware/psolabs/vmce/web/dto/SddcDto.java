@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class SddcDto implements Serializable {
 
@@ -34,9 +34,8 @@ public class SddcDto implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
     private Date updated;
     private String provider;
-    // TODO[fcarta] finish implementing the resource config
-    // @JsonAlias("resource_config")
-    // private SddcResourceConfigDto resourceConfig;
+    @JsonAlias("resource_config")
+    private SddcResourceConfigDto resourceConfig;
     @JsonAlias("sddc_state")
     private String sddcState;
     @JsonAlias("sddc_access_state")
@@ -141,6 +140,14 @@ public class SddcDto implements Serializable {
 
     public void setProvider(String provider) {
         this.provider = provider;
+    }
+
+    public SddcResourceConfigDto getResourceConfig() {
+        return resourceConfig;
+    }
+
+    public void setResourceConfig(SddcResourceConfigDto resourceConfig) {
+        this.resourceConfig = resourceConfig;
     }
 
     public String getSddcState() {

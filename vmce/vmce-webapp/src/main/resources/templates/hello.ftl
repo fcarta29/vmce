@@ -49,6 +49,16 @@
 		</div>
 		<div class="mb-3 w-100" id="resultOrgList"></div>
 
+		<div class="input-group mb-3">
+		  <div class="input-group-prepend">
+		    <button class="btn btn-primary" type="button" id="getOrg">doIt!</button>
+		  </div>
+		  <span class="form-control" aria-label="" aria-describedby="basic-addon1">Get Org (https://vmc.vmware.com/vmc/api/orgs/:org)</span>
+		  <div class="input-group-append">
+		    <button class="btn btn-primary" type="button" id="clearOrg">Clear</button>
+		  </div>
+		</div>
+		<div class="mb-3 w-100" id="resultOrg"></div>		
 		
 		<div class="input-group mb-3">
 		  <div class="input-group-prepend">
@@ -92,7 +102,7 @@
 				
 				resultDiv.empty().append("Fetching...");				
 				$.ajax({
-					url:"orgs/",
+					url:"api/orgs",
 					type:"POST",
 					data: JSON.stringify({'refreshToken':refreshTokenVal}),
 					dataType: "json",
@@ -107,6 +117,29 @@
     		$('#clearOrgList').click(function(){
     			$("#resultOrgList").empty();
     		});
+
+    		$('#getOrg').click(function(){
+    			var resultDiv = $("#resultOrg");
+				var refreshTokenVal = refreshTokenDiv.val();
+				var orgIdVal = orgIdDiv.val();
+				
+				resultDiv.empty().append("Fetching...");				
+				$.ajax({
+					url:"api/orgs/" + orgIdVal,
+					type:"POST",
+					data: JSON.stringify({'refreshToken':refreshTokenVal}),
+					dataType: "json",
+					contentType:"application/json; charset=utf-8",
+					success: function(data) {
+						resultDiv.empty();
+						resultDiv.jsonView(data);
+					}
+				});
+			});
+
+    		$('#clearOrg').click(function(){
+    			$("#resultOrg").empty();
+    		});        					
     		
     		$('#getSDDCList').click(function(){
     			var resultDiv = $("#resultSDDCList");
@@ -115,9 +148,9 @@
 				
 				resultDiv.empty().append("Fetching...");				
 				$.ajax({
-					url:"sddcs/",
+					url:"api/orgs/" + orgIdVal + "/sddcs",
 					type:"POST",
-					data: JSON.stringify({'refreshToken':refreshTokenVal,'orgId':orgIdVal}),
+					data: JSON.stringify({'refreshToken':refreshTokenVal}),
 					dataType: "json",
 					contentType:"application/json; charset=utf-8",
 					success: function(data) {
@@ -130,8 +163,7 @@
     		$('#clearSDDCList').click(function(){
     			$("#resultSDDCList").empty();
     		});    		
-    		
-    		
+    		   		
     		$('#getSDDC').click(function(){
     			var resultDiv = $("#resultSDDC");
 				var refreshTokenVal = refreshTokenDiv.val();
@@ -140,9 +172,9 @@
 				
 				resultDiv.empty().append("Fetching...");				
 				$.ajax({
-					url:"sddcs/"+sddcIdVal,
+					url:"api/orgs/" + orgIdVal + "/sddcs/" + sddcIdVal,
 					type:"POST",
-					data: JSON.stringify({'refreshToken':refreshTokenVal,'orgId':orgIdVal}),
+					data: JSON.stringify({'refreshToken':refreshTokenVal}),
 					dataType: "json",
 					contentType:"application/json; charset=utf-8",
 					success: function(data) {
